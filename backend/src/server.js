@@ -1,8 +1,15 @@
-require('dotenv').config();
-const app = require('./app');
+const express = require('express');
+const cors = require('cors');
 
-const PORT = process.env.PORT || 5000;
+const app = express();
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+app.use(cors({
+  origin: 'https://spillproof98.github.io',
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
+
+app.use(express.json());
+app.use('/api/news', require('./routes/news'));
+
+module.exports = app;
