@@ -1,4 +1,5 @@
 📰 Chatbot News Finder
+live-https://spillproof98.github.io/knews-bot/
 
 An interactive 3D chatbot that fetches the latest news using keywords like iPhone, Microsoft, etc.
 Frontend is built in React with a 3D chat UI, and backend uses Node.js + PostgreSQL, hosted on Render.
