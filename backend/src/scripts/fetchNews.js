@@ -2,10 +2,11 @@ const axios = require("axios");
 const xml2js = require("xml2js");
 const pool = require("../config/postgres");
 
+
 async function fetchXml(url) {
   const { data } = await axios.get(url, {
     headers: {
-      "User-Agent": "Mozilla/5.0",
+      "User-Agent": "Mozilla/5.0", 
       Accept: "application/xml,text/xml",
     },
   });
@@ -47,31 +48,25 @@ async function fetchReutersSitemapIndex() {
   const indexUrl =
     "https://www.reuters.com/arc/outboundfeeds/sitemap-index/?outputType=xml";
 
-  try {
-    const parsed = await fetchXml(indexUrl);
+  const parsed = await fetchXml(indexUrl);
 
-    if (!parsed.sitemapindex?.sitemap) {
-      console.error("No sitemaps found in index");
-      return;
-    }
-
-    const sitemaps = parsed.sitemapindex.sitemap.map((s) => s.loc[0]);
-
-    for (const sitemapUrl of sitemaps) {
-      try {
-        await processSitemap(sitemapUrl);
-      } catch (err) {
-        console.error("Failed to process sitemap:", sitemapUrl, err.message);
-      }
-    }
-
-    console.log("✅ Done fetching Reuters sitemaps");
-  } catch (err) {
-    console.error("Fetch failed:", err.message);
+  if (!parsed.sitemapindex?.sitemap) {
+    console.error("No sitemaps found in index");
+    return;
   }
+
+  const sitemaps = parsed.sitemapindex.sitemap.map((s) => s.loc[0]);
+
+  for (const sitemapUrl of sitemaps) {
+    try {
+      await processSitemap(sitemapUrl);
+    } catch (err) {
+      console.error("Failed to process sitemap:", sitemapUrl, err.message);
+    }
+  }
+
+  await pool.end();
+  console.log("✅ Done fetching Reuters sitemaps");
 }
-
-setInterval(fetchReutersSitemapIndex, 5 * 60 * 1000);
-
 
 fetchReutersSitemapIndex();
