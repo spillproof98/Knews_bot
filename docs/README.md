@@ -6,7 +6,7 @@ Frontend is built in React with a 3D chat UI, and backend uses Node.js + Postgre
 
 🚀 Features
 
-🔍 Search news by keywords (iPhone, Microsoft, AI .A…).
+🔍 Search news by keywords (iPhone, Microsoft, AI , Trump, China).
 
 💬 Fun 3D chat bubbles with bot & user messages.
 
