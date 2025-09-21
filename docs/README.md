@@ -1,5 +1,6 @@
 📰 Chatbot News Finder
-Refresh once.
+
+Refresh once-GhPages
 live-https://spillproof98.github.io/knews-bot/
 
 An interactive 3D chatbot that fetches the latest news using keywords like iPhone, Microsoft, etc.
